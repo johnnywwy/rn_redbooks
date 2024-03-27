@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -24,6 +24,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import ClassView from './src/components/Classview';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -62,36 +64,24 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [showClassView, setShowClassView] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowClassView(false);
+    }, 2000);
+  }, []);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
+      {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+        style={backgroundStyle}></ScrollView> */}
+      <View style={styles.container}>{showClassView && <ClassView />}</View>
     </SafeAreaView>
   );
 }
@@ -112,6 +102,11 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  container: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
